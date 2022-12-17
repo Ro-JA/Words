@@ -21,28 +21,30 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wordsapp.databinding.ActivityDetailBinding
 
-
 class DetailActivity : AppCompatActivity() {
-
+    companion object {
+        const val LATTER = "latter"
+        const val SEARCH_PREFIX = "https://www.goole.com/search?q="
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Retrieve a binding object that allows you to refer to views by id name
-        // Names are converted from snake case to camel case.
-        // For example, a View with the id word_one is referenced as binding.wordOne
+        // Извлеките объект привязки, который позволяет вам ссылаться на представления по имени идентификатора
+        // Имена преобразуются из регистра snake в регистр camel.
+        // Например, на представление с идентификатором word_one ссылаются как на привязку.слово первое
         val binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve the LETTER from the Intent extras
-        // intent.extras.getString returns String? (String or null)
-        // so toString() guarantees that the value will be a String
-        val letterId = "A"
+        // Извлеките ПИСЬМО из приложения Intent extras
+        // intent.extras.getString возвращает строку? (Строка или null)
+        // таким образом, toString() гарантирует, что значение будет строкой
+        val letterId = intent?.extras?.getString(LATTER).toString()
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = WordAdapter(letterId, this)
 
-        // Adds a [DividerItemDecoration] between items
+        // Добавляет [DividerItemDecoration] между элементами
         recyclerView.addItemDecoration(
             DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         )
